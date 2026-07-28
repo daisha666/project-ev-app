@@ -1,0 +1,166 @@
+
+* { box-sizing: border-box; }
+:root {
+  --bg: #0b0e14;
+  --bg-card: #141824;
+  --bg-card-alt: #10131c;
+  --border: #232838;
+  --gold: #f0c84a;
+  --gold-dim: #8a6f1f;
+  --text: #eef1f6;
+  --muted: #8892a6;
+  --warn: #f5c842;
+  --danger: #ff5a5a;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic",
+                 "Segoe UI", Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.55;
+}
+.container { max-width: 480px; margin: 0 auto; padding: 12px 12px 40px; }
+a { color: inherit; text-decoration: none; }
+
+/* ===== ヘッダー ===== */
+.top-header {
+    background: linear-gradient(180deg, #14192a 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 16px 14px;
+    text-align: center;
+}
+.top-header .logo { font-size: 22px; margin-right: 6px; }
+.top-header h1 {
+    display: inline; margin: 0; font-size: 19px; font-weight: 900;
+    color: var(--gold); letter-spacing: .02em;
+}
+.top-header .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.refresh-btn {
+    display: inline-block; margin-top: 12px; background: var(--gold); color: #1a1400;
+    font-weight: 800; font-size: 13px; padding: 9px 22px; border-radius: 999px;
+    box-shadow: 0 2px 10px rgba(240,200,74,.35); border: none; cursor: pointer;
+}
+
+.date-title { font-size: 14px; font-weight: 700; color: var(--muted); margin: 16px 2px 8px; }
+
+/* ===== メインページ: レースカードグリッド ===== */
+.race-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+}
+.race-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 8px 6px; text-align: center; position: relative;
+}
+.race-card .course { font-size: 10px; color: var(--muted); }
+.race-card .round { font-size: 20px; font-weight: 900; color: var(--gold); margin: 2px 0; }
+.race-card .name { font-size: 10px; color: var(--text); line-height: 1.3; height: 2.6em; overflow: hidden; }
+.race-card .badge {
+    position: absolute; top: -6px; right: -6px; font-size: 9px; font-weight: 800;
+    background: var(--gold); color: #1a1400; border-radius: 6px; padding: 1px 5px;
+}
+.race-card .badge.plain { background: #2a3040; color: var(--muted); }
+
+/* ===== 共通ボックス ===== */
+.box {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 12px 14px; margin-bottom: 12px;
+}
+.box-title { font-size: 13px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.ref-tag {
+    font-size: 10px; font-weight: 700; background: rgba(245,200,66,.15); color: var(--warn);
+    border: 1px solid rgba(245,200,66,.4); border-radius: 6px; padding: 1px 6px;
+}
+.model-tag {
+    font-size: 10px; font-weight: 700; background: rgba(90,170,238,.15); color: #5aaaee;
+    border: 1px solid rgba(90,170,238,.4); border-radius: 6px; padding: 1px 6px;
+}
+
+/* ===== レース詳細ヘッダー・条件 ===== */
+.race-header { text-align: center; padding: 14px 4px 4px; }
+.race-header .name { font-size: 18px; font-weight: 900; color: var(--gold); }
+.condition-row {
+    display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+    font-size: 11px; color: var(--muted); margin: 8px 0 16px;
+}
+.condition-row span {
+    background: var(--bg-card-alt); border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px;
+}
+.back-link { display: inline-block; margin: 10px 0; font-size: 12px; color: var(--muted); }
+
+/* ===== 展開予想ボックス（参考） ===== */
+.box.pace-box { background: var(--bg-card-alt); border-color: var(--gold-dim); }
+.pace-style-counts { display: flex; gap: 8px; margin: 8px 0; flex-wrap: wrap; }
+.pace-style-counts .chip {
+    font-size: 11px; border-radius: 8px; padding: 4px 9px; font-weight: 700;
+}
+.pace-line { font-size: 12px; margin: 4px 0; color: var(--text); }
+.pace-line .label { color: var(--muted); margin-right: 4px; }
+.pace-note { font-size: 11px; color: var(--muted); margin-top: 8px; border-top: 1px dashed var(--border); padding-top: 8px; }
+
+/* ===== 予想カード（◎○▲△☆） ===== */
+.pred-cards { display: flex; flex-direction: column; gap: 6px; }
+.pred-card {
+    display: flex; align-items: center; gap: 8px; background: var(--bg-card);
+    border: 1px solid var(--border); border-left: 4px solid var(--border);
+    border-radius: 10px; padding: 8px 10px;
+}
+.pred-card .mark { font-size: 18px; font-weight: 900; width: 22px; text-align: center; flex-shrink: 0; }
+.pred-card .num {
+    background: #232838; color: var(--text); border-radius: 6px; width: 24px; height: 24px;
+    display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0;
+}
+.pred-card .body { flex: 1; min-width: 0; }
+.pred-card .name-row { display: flex; justify-content: space-between; align-items: baseline; }
+.pred-card .horse-name { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pred-card .jockey { font-size: 10px; color: var(--muted); flex-shrink: 0; margin-left: 6px; }
+.pred-card .bar-row { display: flex; align-items: center; gap: 6px; margin-top: 3px; }
+.pred-card .bar-track { flex: 1; height: 5px; background: #232838; border-radius: 3px; overflow: hidden; }
+.pred-card .bar-fill { height: 100%; border-radius: 3px; }
+.pred-card .score-text { font-size: 10px; color: var(--muted); width: 34px; text-align: right; flex-shrink: 0; }
+.pred-card .ev-text { font-size: 10px; color: var(--muted); margin-left: 6px; }
+
+/* ===== 期待値上位カード ===== */
+.ev-cards { display: flex; flex-direction: column; gap: 6px; }
+.ev-card {
+    display: flex; align-items: center; gap: 8px; border-radius: 10px; padding: 8px 10px;
+    background: var(--bg-card); border: 1px solid var(--border);
+}
+.ev-card .ev-label {
+    font-size: 11px; font-weight: 900; border-radius: 6px; padding: 3px 7px; flex-shrink: 0; color: #06202a;
+}
+.ev-card .horse-name { font-size: 13px; font-weight: 700; flex: 1; }
+.ev-card .ev-value { font-size: 13px; font-weight: 800; }
+.ev-card .odds-text { font-size: 10px; color: var(--muted); }
+
+/* ===== 危険馬（過剰人気）ボックス ===== */
+.box.danger-box { border-color: var(--danger); background: rgba(255,90,90,.06); }
+.danger-box .box-title { color: var(--danger); }
+.danger-row { font-size: 12px; padding: 6px 0; border-top: 1px solid rgba(255,90,90,.15); }
+.danger-row:first-child { border-top: none; }
+.danger-row .name { font-weight: 700; }
+.danger-row .detail { color: var(--muted); font-size: 11px; }
+
+/* ===== 買い目推奨ボックス ===== */
+.reco-row { margin-bottom: 10px; }
+.reco-row:last-child { margin-bottom: 0; }
+.reco-label { font-size: 11px; font-weight: 800; color: var(--gold); margin-bottom: 3px; }
+.reco-value { font-size: 12px; }
+.reco-cond { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+/* ===== 全馬スコア一覧テーブル ===== */
+.score-table-wrap { overflow-x: auto; }
+table.score-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+table.score-table th, table.score-table td {
+    padding: 6px 5px; text-align: center; border-bottom: 1px solid var(--border); white-space: nowrap;
+}
+table.score-table th { color: var(--muted); font-weight: 700; font-size: 10px; }
+table.score-table td.name-cell { text-align: left; }
+.style-badge {
+    display: inline-block; font-size: 10px; font-weight: 700; border-radius: 5px; padding: 1px 6px; color: #06202a;
+}
+
+.section-gap { height: 6px; }
+.footer-note { font-size: 10px; color: var(--muted); text-align: center; margin-top: 18px; }
