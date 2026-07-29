@@ -127,6 +127,7 @@ a { color: inherit; text-decoration: none; }
 .pred-card .name-row { display: flex; justify-content: space-between; align-items: baseline; }
 .pred-card .horse-name { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pred-card .jockey { font-size: 10px; color: var(--muted); flex-shrink: 0; margin-left: 6px; }
+.metric-label { font-size: 10px; color: var(--muted); margin-top: 6px; }
 .pred-card .bar-row { display: flex; align-items: center; gap: 6px; margin-top: 3px; }
 .pred-card .bar-track { flex: 1; height: 5px; background: #232838; border-radius: 3px; overflow: hidden; }
 .pred-card .bar-fill { height: 100%; border-radius: 3px; }
@@ -160,6 +161,7 @@ a { color: inherit; text-decoration: none; }
 .reco-label { font-size: 11px; font-weight: 800; color: var(--gold); margin-bottom: 3px; }
 .reco-value { font-size: 12px; }
 .reco-cond { font-size: 10px; color: var(--muted); margin-top: 2px; }
+.reco-note { font-size: 10px; color: var(--muted); margin-top: 4px; font-style: italic; }
 
 /* ===== 全馬スコア一覧テーブル ===== */
 .score-table-wrap { overflow-x: auto; }

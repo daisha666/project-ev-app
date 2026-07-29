@@ -29,7 +29,7 @@
 </div>
 
 <div class="box">
-  <div class="box-title">予想カード（総合スコア上位5頭） <span class="model-tag">モデル直接予測</span></div>
+  <div class="box-title">予想カード（複勝予測確率上位5頭） <span class="model-tag">モデル直接予測</span></div>
   <div class="pred-cards">
 <div class="pred-card" style="border-left-color:#ff5a5a;">
   <div class="mark" style="color:#ff5a5a;">◎</div>
@@ -39,6 +39,7 @@
       <span class="horse-name">ダノンセンチュリー</span>
       <span class="jockey">戸崎 圭太</span>
     </div>
+    <div class="metric-label">複勝予測確率</div>
     <div class="bar-row">
       <div class="bar-track"><div class="bar-fill" style="width:51%;background:#ff5a5a;"></div></div>
       <div class="score-text">51.1%</div>
@@ -55,6 +56,7 @@
       <span class="horse-name">アンパドゥ</span>
       <span class="jockey">岩田 望来</span>
     </div>
+    <div class="metric-label">複勝予測確率</div>
     <div class="bar-row">
       <div class="bar-track"><div class="bar-fill" style="width:42%;background:#5aaaee;"></div></div>
       <div class="score-text">41.7%</div>
@@ -71,6 +73,7 @@
       <span class="horse-name">サンダーストラック</span>
       <span class="jockey">丸山 元気</span>
     </div>
+    <div class="metric-label">複勝予測確率</div>
     <div class="bar-row">
       <div class="bar-track"><div class="bar-fill" style="width:32%;background:#f0954a;"></div></div>
       <div class="score-text">32.4%</div>
@@ -87,6 +90,7 @@
       <span class="horse-name">ファーヴェント</span>
       <span class="jockey">西塚 洸二</span>
     </div>
+    <div class="metric-label">複勝予測確率</div>
     <div class="bar-row">
       <div class="bar-track"><div class="bar-fill" style="width:31%;background:#c9c9c9;"></div></div>
       <div class="score-text">31.1%</div>
@@ -103,6 +107,7 @@
       <span class="horse-name">エルトンバローズ</span>
       <span class="jockey">J.コレット</span>
     </div>
+    <div class="metric-label">複勝予測確率</div>
     <div class="bar-row">
       <div class="bar-track"><div class="bar-fill" style="width:26%;background:#4adf80;"></div></div>
       <div class="score-text">26.4%</div>
@@ -120,7 +125,7 @@
   <div class="ev-label" style="background:#2dd4bf;">注1</div>
   <div class="horse-name">13 ブエナオンダ</div>
   <div>
-    <div class="ev-value" style="color:#2dd4bf;">EV 1.95</div>
+    <div class="ev-value" style="color:#2dd4bf;">複勝EV 1.95</div>
     <div class="odds-text">8.0-10.4倍</div>
   </div>
 </div>
@@ -129,7 +134,7 @@
   <div class="ev-label" style="background:#22d3ee;">注2</div>
   <div class="horse-name">2 ジュタ</div>
   <div>
-    <div class="ev-value" style="color:#22d3ee;">EV 1.53</div>
+    <div class="ev-value" style="color:#22d3ee;">複勝EV 1.53</div>
     <div class="odds-text">8.0-10.4倍</div>
   </div>
 </div>
@@ -138,7 +143,7 @@
   <div class="ev-label" style="background:#38bdf8;">注3</div>
   <div class="horse-name">9 サンダーストラック</div>
   <div>
-    <div class="ev-value" style="color:#38bdf8;">EV 1.44</div>
+    <div class="ev-value" style="color:#38bdf8;">複勝EV 1.44</div>
     <div class="odds-text">3.9-5.0倍</div>
   </div>
 </div>
@@ -160,18 +165,19 @@
   <div class="box-title">買い目推奨</div>
   <div class="reco-row">
     <div class="reco-label">単勝</div>
-    <div class="reco-value">9サンダーストラック(EV2.14)、12ランスオブカオス(EV1.37)、5レディマリオン(EV1.30)、1ファーヴェント(EV1.21)</div>
-    <div class="reco-cond">条件: EV≥1.2・オッズ上限30倍</div>
+    <div class="reco-value">9サンダーストラック(単勝EV2.14)、12ランスオブカオス(単勝EV1.37)、5レディマリオン(単勝EV1.30)、1ファーヴェント(単勝EV1.21)</div>
+    <div class="reco-cond">条件: 単勝EV≥1.2・オッズ上限30倍</div>
   </div>
   <div class="reco-row">
     <div class="reco-label">ワイド（軸→相手）</div>
     <div class="reco-value">9サンダーストラック → 12ランスオブカオス、1ファーヴェント、8ダノンセンチュリー</div>
-    <div class="reco-cond">条件: EV≥1.2・オッズ上限50倍</div>
+    <div class="reco-cond">条件: ワイドEV≥1.2・オッズ上限50倍</div>
   </div>
   <div class="reco-row">
     <div class="reco-label">馬連（BOX買い）</div>
     <div class="reco-value">8-3-9-12-1 BOX（ダノンセンチュリー-アンパドゥ-サンダーストラック-ランスオブカオス-ファーヴェント）</div>
-    <div class="reco-cond">条件: 予測勝率（オッズ非依存）上位5頭</div>
+    <div class="reco-cond">条件: 単勝予測確率（オッズ非依存）上位5頭</div>
+    <div class="reco-note">単勝予測確率（1着になる確率）上位5頭で構成。予想カードの複勝予測確率とは異なる基準です</div>
   </div>
 </div>
 
@@ -179,15 +185,25 @@
   <div class="box-title">全馬スコア一覧 <span class="model-tag">モデル直接予測</span></div>
   <div class="score-table-wrap">
     <table class="score-table">
-      <tr><th>順位</th><th>印</th><th>馬番</th><th>馬名</th><th>騎手</th><th>総合スコア</th><th>EV</th><th>脚質</th></tr>
+      <tr>
+        <th>順位</th><th>印</th><th>期待値印</th><th>馬番</th><th>馬名</th><th>騎手</th>
+        <th>単勝予測確率</th><th>単勝オッズ</th><th>単勝EV</th>
+        <th>複勝予測確率</th><th>複勝オッズ</th><th>複勝EV</th>
+        <th>脚質</th>
+      </tr>
       
 <tr>
   <td>1</td>
   <td>◎</td>
+  <td></td>
   <td>8</td>
   <td class="name-cell">ダノンセンチュリー</td>
   <td>戸崎 圭太</td>
+  <td>20.4%</td>
+  <td>5.0倍</td>
+  <td>1.02</td>
   <td>51.1%</td>
+  <td>1.9-2.3倍</td>
   <td>1.07</td>
   <td><span class="style-badge" style="background:#5aaaee;">差し</span></td>
 </tr>
@@ -195,10 +211,15 @@
 <tr>
   <td>2</td>
   <td>○</td>
+  <td></td>
   <td>3</td>
   <td class="name-cell">アンパドゥ</td>
   <td>岩田 望来</td>
+  <td>15.7%</td>
+  <td>4.8倍</td>
+  <td>0.75</td>
   <td>41.7%</td>
+  <td>1.9-2.3倍</td>
   <td>0.88</td>
   <td><span class="style-badge" style="background:#5aaaee;">差し</span></td>
 </tr>
@@ -206,10 +227,15 @@
 <tr>
   <td>3</td>
   <td>▲</td>
+  <td>注3</td>
   <td>9</td>
   <td class="name-cell">サンダーストラック</td>
   <td>丸山 元気</td>
+  <td>15.0%</td>
+  <td>14.3倍</td>
+  <td>2.14</td>
   <td>32.4%</td>
+  <td>3.9-5.0倍</td>
   <td>1.44</td>
   <td><span class="style-badge" style="background:#5aaaee;">差し</span></td>
 </tr>
@@ -217,10 +243,15 @@
 <tr>
   <td>4</td>
   <td>△</td>
+  <td></td>
   <td>1</td>
   <td class="name-cell">ファーヴェント</td>
   <td>西塚 洸二</td>
+  <td>11.4%</td>
+  <td>10.6倍</td>
+  <td>1.21</td>
   <td>31.1%</td>
+  <td>2.8-3.5倍</td>
   <td>0.98</td>
   <td><span class="style-badge" style="background:#f0954a;">先行</span></td>
 </tr>
@@ -228,10 +259,15 @@
 <tr>
   <td>5</td>
   <td>☆</td>
+  <td></td>
   <td>7</td>
   <td class="name-cell">エルトンバローズ</td>
   <td>J.コレット</td>
+  <td>9.4%</td>
+  <td>8.9倍</td>
+  <td>0.84</td>
   <td>26.4%</td>
+  <td>2.7-3.4倍</td>
   <td>0.80</td>
   <td><span class="style-badge" style="background:#f0954a;">先行</span></td>
 </tr>
@@ -239,10 +275,15 @@
 <tr>
   <td>6</td>
   <td></td>
+  <td>注1</td>
   <td>13</td>
   <td class="name-cell">ブエナオンダ</td>
   <td>田口 貫太</td>
+  <td>6.3%</td>
+  <td>43.2倍</td>
+  <td>2.74</td>
   <td>21.2%</td>
+  <td>8.0-10.4倍</td>
   <td>1.95</td>
   <td><span class="style-badge" style="background:#5aaaee;">差し</span></td>
 </tr>
@@ -250,10 +291,15 @@
 <tr>
   <td>7</td>
   <td></td>
+  <td></td>
   <td>12</td>
   <td class="name-cell">ランスオブカオス</td>
   <td>石川 裕紀人</td>
+  <td>13.3%</td>
+  <td>10.3倍</td>
+  <td>1.37</td>
   <td>19.6%</td>
+  <td>3.5-4.5倍</td>
   <td>0.78</td>
   <td><span class="style-badge" style="background:#f0954a;">先行</span></td>
 </tr>
@@ -261,10 +307,15 @@
 <tr>
   <td>8</td>
   <td></td>
+  <td></td>
   <td>10</td>
   <td class="name-cell">クランフォード</td>
   <td>菊沢 一樹</td>
+  <td>4.7%</td>
+  <td>11.3倍</td>
+  <td>0.53</td>
   <td>18.6%</td>
+  <td>2.9-3.7倍</td>
   <td>0.62</td>
   <td><span class="style-badge" style="background:#f0954a;">先行</span></td>
 </tr>
@@ -272,10 +323,15 @@
 <tr>
   <td>9</td>
   <td></td>
+  <td></td>
   <td>6</td>
   <td class="name-cell">シリウスコルト</td>
   <td>田辺 裕信</td>
+  <td>2.8%</td>
+  <td>9.0倍</td>
+  <td>0.25</td>
   <td>17.8%</td>
+  <td>2.5-3.2倍</td>
   <td>0.51</td>
   <td><span class="style-badge" style="background:#5aaaee;">差し</span></td>
 </tr>
@@ -283,10 +339,15 @@
 <tr>
   <td>10</td>
   <td></td>
+  <td>注2</td>
   <td>2</td>
   <td class="name-cell">ジュタ</td>
   <td>吉田 豊</td>
+  <td>4.4%</td>
+  <td>37.5倍</td>
+  <td>1.66</td>
   <td>16.6%</td>
+  <td>8.0-10.4倍</td>
   <td>1.53</td>
   <td><span class="style-badge" style="background:#5aaaee;">差し</span></td>
 </tr>
@@ -294,10 +355,15 @@
 <tr>
   <td>11</td>
   <td></td>
+  <td></td>
   <td>5</td>
   <td class="name-cell">レディマリオン</td>
   <td>今村 聖奈</td>
+  <td>5.2%</td>
+  <td>25.0倍</td>
+  <td>1.30</td>
   <td>16.3%</td>
+  <td>6.0-7.8倍</td>
   <td>1.12</td>
   <td><span class="style-badge" style="background:#f0954a;">先行</span></td>
 </tr>
@@ -305,10 +371,15 @@
 <tr>
   <td>12</td>
   <td></td>
+  <td></td>
   <td>4</td>
   <td class="name-cell">マテンロウスカイ</td>
   <td>横山 典弘</td>
+  <td>3.1%</td>
+  <td>31.0倍</td>
+  <td>0.96</td>
   <td>16.2%</td>
+  <td>6.7-8.7倍</td>
   <td>1.25</td>
   <td><span class="style-badge" style="background:#5aaaee;">差し</span></td>
 </tr>
@@ -316,10 +387,15 @@
 <tr>
   <td>13</td>
   <td></td>
+  <td></td>
   <td>14</td>
   <td class="name-cell">メタルスピード</td>
   <td>斎藤 新</td>
+  <td>3.3%</td>
+  <td>11.1倍</td>
+  <td>0.37</td>
   <td>14.9%</td>
+  <td>3.2-4.1倍</td>
   <td>0.54</td>
   <td><span class="style-badge" style="background:#ff5a5a;">逃げ</span></td>
 </tr>
@@ -327,16 +403,22 @@
 <tr>
   <td>14</td>
   <td></td>
+  <td></td>
   <td>11</td>
   <td class="name-cell">ドロップオブライト</td>
   <td>松若 風馬</td>
+  <td>2.9%</td>
+  <td>16.0倍</td>
+  <td>0.46</td>
   <td>8.3%</td>
+  <td>3.3-4.2倍</td>
   <td>0.31</td>
   <td><span class="style-badge" style="background:#5aaaee;">差し</span></td>
 </tr>
 
     </table>
   </div>
+  <div class="reco-note">印=◎○▲△☆（複勝予測確率上位5頭）／期待値印=注1〜注3（複勝EV上位・オッズ上限20倍以内）</div>
 </div>
 <div class="footer-note">学習データ最終日: 複勝2026-07-25 / 単勝2026-07-25（2026-07-26より前であることを確認）</div></div>
 </body>
