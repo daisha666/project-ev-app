@@ -11,7 +11,10 @@
 <div class="top-header">
   <span class="logo">🏇</span><h1>Project EV 予想</h1>
   <div class="sub">2026-07-19</div>
-  <div><button class="refresh-btn" onclick="location.reload()">更新</button></div>
+  <div>
+    <button class="refresh-btn" id="refresh-btn" onclick="requestOddsRefresh()">更新</button>
+    <div class="refresh-status" id="refresh-status"></div>
+  </div>
 </div>
 <div class="container">
   <div class="date-title">2026-07-19 開催レース（10レース）</div>
@@ -110,6 +113,24 @@
   </div>
   <div class="footer-note">複勝モデル（主軸）× 単勝モデル（参考）+ Harville法によるワイド・馬連推奨<br>新馬戦・障害戦は対象外</div>
 </div>
+<script>
+function requestOddsRefresh() {
+  var btn = document.getElementById('refresh-btn');
+  var status = document.getElementById('refresh-status');
+  btn.disabled = true;
+  status.textContent = 'リクエスト送信中...';
+  fetch('https://script.google.com/macros/s/AKfycbwSiLbpQnBnrikBxcpUfs_m8hUI2tO6yMOh7gMFwF18Oc1Go7jHxuuQ0L-D_FLH_0e6ig/exec?key=6fImI1UtFzsm6oNSE5k9uB4Lkpa6', { mode: 'no-cors' })
+    .then(function() {
+      status.textContent = 'オッズ更新をリクエストしました。5分以内に反映されます。';
+    })
+    .catch(function() {
+      status.textContent = 'リクエストに失敗しました。時間をおいて再度お試しください。';
+    })
+    .finally(function() {
+      btn.disabled = false;
+    });
+}
+</script>
 
 </body>
 </html>
