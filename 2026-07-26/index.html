@@ -42,21 +42,64 @@
   <div class="footer-note">複勝モデル（主軸）× 単勝モデル（参考）+ Harville法によるワイド・馬連推奨<br>新馬戦・障害戦は対象外</div>
 </div>
 <script>
+var ODDS_REFRESH_STATUS_URL = 'https://script.google.com/macros/s/AKfycbwSiLbpQnBnrikBxcpUfs_m8hUI2tO6yMOh7gMFwF18Oc1Go7jHxuuQ0L-D_FLH_0e6ig/exec?key=6fImI1UtFzsm6oNSE5k9uB4Lkpa6&action=status';
+var ODDS_REFRESH_POLL_INTERVAL_SEC = 15;
+var ODDS_REFRESH_MAX_WAIT_SEC = 300;
+
 function requestOddsRefresh() {
   var btn = document.getElementById('refresh-btn');
   var status = document.getElementById('refresh-status');
   btn.disabled = true;
-  status.textContent = 'リクエスト送信中...';
+  status.textContent = '更新中...';
+
   fetch('https://script.google.com/macros/s/AKfycbwSiLbpQnBnrikBxcpUfs_m8hUI2tO6yMOh7gMFwF18Oc1Go7jHxuuQ0L-D_FLH_0e6ig/exec?key=6fImI1UtFzsm6oNSE5k9uB4Lkpa6', { mode: 'no-cors' })
     .then(function() {
-      status.textContent = 'オッズ更新をリクエストしました。5分以内に反映されます。';
+      pollOddsRefreshStatus(0);
     })
     .catch(function() {
       status.textContent = 'リクエストに失敗しました。時間をおいて再度お試しください。';
-    })
-    .finally(function() {
       btn.disabled = false;
     });
+}
+
+function pollOddsRefreshStatus(elapsedSeconds) {
+  var btn = document.getElementById('refresh-btn');
+  var status = document.getElementById('refresh-status');
+
+  fetch(ODDS_REFRESH_STATUS_URL)
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data.status === '完了') {
+        var timeText = data.completedAt ? data.completedAt.split(' ').pop() : '';
+        status.textContent = '更新完了（' + timeText + '）。ページを再読み込みして最新の内容を確認してください。';
+        btn.disabled = false;
+        return;
+      }
+      if (data.status === 'エラー') {
+        status.textContent = '更新処理でエラーが発生しました。時間をおいて再度お試しください。';
+        btn.disabled = false;
+        return;
+      }
+      scheduleNextOddsRefreshPoll(elapsedSeconds);
+    })
+    .catch(function() {
+      scheduleNextOddsRefreshPoll(elapsedSeconds);
+    });
+}
+
+function scheduleNextOddsRefreshPoll(elapsedSeconds) {
+  var btn = document.getElementById('refresh-btn');
+  var status = document.getElementById('refresh-status');
+  var next = elapsedSeconds + ODDS_REFRESH_POLL_INTERVAL_SEC;
+
+  if (next >= ODDS_REFRESH_MAX_WAIT_SEC) {
+    status.textContent = '反映に時間がかかっています。しばらくしてページを再読み込みしてください。';
+    btn.disabled = false;
+    return;
+  }
+
+  status.textContent = '更新中...（' + next + '秒経過）';
+  setTimeout(function() { pollOddsRefreshStatus(next); }, ODDS_REFRESH_POLL_INTERVAL_SEC * 1000);
 }
 </script>
 
