@@ -118,12 +118,22 @@ var ODDS_REFRESH_STATUS_URL = 'https://script.google.com/macros/s/AKfycbwSiLbpQn
 var ODDS_REFRESH_POLL_INTERVAL_SEC = 15;
 var ODDS_REFRESH_MAX_WAIT_SEC = 300;
 
+// 更新ボタンの表示は、実際の処理段階に合わせて3段階に分ける:
+//   1. 【実行開始】  ボタンを押した直後（GASがチェックボックスをONにした時点。
+//                     watcher.pyがまだ拾っていない＝スプレッドシートのステータスは
+//                     「待機中」、または前回実行分の古い「完了」「エラー」のまま）
+//   2. 【オッズ取得・再計算実行中】  watcher.pyが実際に処理を拾い、ステータスが
+//                     「実行中」に変わった時点
+//   3. 【実行完了】  ステータスが「完了」に変わった時点（完了時刻を表示）
+var ODDS_REFRESH_STAGE_STARTED = '【実行開始】反映まで最大5分程度かかります。';
+var ODDS_REFRESH_STAGE_RUNNING = '【オッズ取得・再計算実行中】';
+
 function requestOddsRefresh() {
   var btn = document.getElementById('refresh-btn');
   var status = document.getElementById('refresh-status');
   var requestedAt = new Date();
   btn.disabled = true;
-  status.textContent = '更新中...';
+  status.textContent = ODDS_REFRESH_STAGE_STARTED;
 
   fetch('https://script.google.com/macros/s/AKfycbwSiLbpQnBnrikBxcpUfs_m8hUI2tO6yMOh7gMFwF18Oc1Go7jHxuuQ0L-D_FLH_0e6ig/exec?key=6fImI1UtFzsm6oNSE5k9uB4Lkpa6', { mode: 'no-cors' })
     .then(function() {
@@ -154,12 +164,9 @@ function pollOddsRefreshStatus(elapsedSeconds, requestedAt) {
     .then(function(data) {
       var isFresh = isOddsRefreshCompletedAfter(data.completedAt, requestedAt);
 
-      // 「待機中」（まだwatcher.pyがチェックを拾っていない）「実行中」はどちらも
-      // 更新中として扱う。「完了」「エラー」も、completedAtが押した時刻より前
-      // （＝前回実行時の古い結果）ならまだ今回分ではないので更新中のまま続ける
       if (data.status === '完了' && isFresh) {
         var timeText = data.completedAt.split(' ').pop();
-        status.textContent = '更新完了（' + timeText + '）。ページを再読み込みして最新の内容を確認してください。';
+        status.textContent = '【実行完了】' + timeText + ' に完了しました。ページを再読み込みして最新の内容を確認してください。';
         btn.disabled = false;
         return;
       }
@@ -168,14 +175,18 @@ function pollOddsRefreshStatus(elapsedSeconds, requestedAt) {
         btn.disabled = false;
         return;
       }
-      scheduleNextOddsRefreshPoll(elapsedSeconds, requestedAt);
+      // 「実行中」はwatcher.pyが実際に処理を拾った状態のみを指す。それ以外
+      // （「待機中」、またはcompletedAtが古い＝前回実行分の「完了」「エラー」）は
+      // まだ拾われていない【実行開始】段階として扱う
+      var stage = (data.status === '実行中') ? 'running' : 'started';
+      scheduleNextOddsRefreshPoll(elapsedSeconds, requestedAt, stage);
     })
     .catch(function() {
-      scheduleNextOddsRefreshPoll(elapsedSeconds, requestedAt);
+      scheduleNextOddsRefreshPoll(elapsedSeconds, requestedAt, 'started');
     });
 }
 
-function scheduleNextOddsRefreshPoll(elapsedSeconds, requestedAt) {
+function scheduleNextOddsRefreshPoll(elapsedSeconds, requestedAt, stage) {
   var btn = document.getElementById('refresh-btn');
   var status = document.getElementById('refresh-status');
   var next = elapsedSeconds + ODDS_REFRESH_POLL_INTERVAL_SEC;
@@ -186,7 +197,8 @@ function scheduleNextOddsRefreshPoll(elapsedSeconds, requestedAt) {
     return;
   }
 
-  status.textContent = '更新中...（' + next + '秒経過）';
+  var label = (stage === 'running') ? ODDS_REFRESH_STAGE_RUNNING : ODDS_REFRESH_STAGE_STARTED;
+  status.textContent = label + '（' + next + '秒経過）';
   setTimeout(function() { pollOddsRefreshStatus(next, requestedAt); }, ODDS_REFRESH_POLL_INTERVAL_SEC * 1000);
 }
 </script>
