@@ -15,6 +15,9 @@
     <button class="refresh-btn" id="refresh-btn" onclick="requestOddsRefresh()">更新</button>
     <div class="refresh-status" id="refresh-status"></div>
   </div>
+  <div class="auto-refresh-row">
+    <div class="auto-refresh-status" id="auto-refresh-status">オッズ自動更新：確認中…</div>
+  </div>
 </div>
 <div class="container">
   <div class="date-title">2026-08-09 開催レース（31レース）</div>
@@ -390,6 +393,65 @@ function scheduleNextOddsRefreshPoll(elapsedSeconds, requestedAt, stage) {
   status.textContent = label + '（' + next + '秒経過）';
   setTimeout(function() { pollOddsRefreshStatus(next, requestedAt); }, ODDS_REFRESH_POLL_INTERVAL_SEC * 1000);
 }
+
+// ---- オッズ自動更新の状態表示（開催日9:30〜17:00・5分おき、automation/odds_auto_refresh_job.pyが
+//      完全自動でON/OFFする。ここは状態を読み取って表示するだけで、操作はできない） ----
+var AUTO_REFRESH_STATUS_URL = 'https://script.google.com/macros/s/AKfycbwSiLbpQnBnrikBxcpUfs_m8hUI2tO6yMOh7gMFwF18Oc1Go7jHxuuQ0L-D_FLH_0e6ig/exec?key=6fImI1UtFzsm6oNSE5k9uB4Lkpa6&action=autorefresh_status';
+var AUTO_REFRESH_STATUS_POLL_INTERVAL_SEC = 30;
+var AUTO_REFRESH_WINDOW_START = [9, 30];  // 9:30
+var AUTO_REFRESH_WINDOW_END = [17, 0];    // 17:00
+var AUTO_REFRESH_INTERVAL_MIN = 5;
+
+// 固定スケジュール（9:30〜17:00・5分おき）から、次回の自動更新までの残り分数を計算する。
+// 実際のTask Schedulerのトリガー時刻と同じ計算式（9:30起点で5分刻み）
+function minutesUntilNextAutoRefreshTick() {
+  var now = new Date();
+  var windowStart = new Date(now);
+  windowStart.setHours(AUTO_REFRESH_WINDOW_START[0], AUTO_REFRESH_WINDOW_START[1], 0, 0);
+  var windowEnd = new Date(now);
+  windowEnd.setHours(AUTO_REFRESH_WINDOW_END[0], AUTO_REFRESH_WINDOW_END[1], 0, 0);
+
+  if (now < windowStart) {
+    return Math.round((windowStart - now) / 60000);
+  }
+  if (now > windowEnd) {
+    return null; // 本日の更新時間帯は終了
+  }
+  var intervalMs = AUTO_REFRESH_INTERVAL_MIN * 60000;
+  var msSinceStart = now - windowStart;
+  var msSinceLastTick = msSinceStart % intervalMs;
+  return Math.ceil((intervalMs - msSinceLastTick) / 60000);
+}
+
+function renderAutoRefreshStatus(isOn) {
+  var statusEl = document.getElementById('auto-refresh-status');
+
+  if (!isOn) {
+    statusEl.textContent = 'オッズ自動更新：OFF（本日終了、または開催日ではありません）';
+    return;
+  }
+
+  var minutesLeft = minutesUntilNextAutoRefreshTick();
+  if (minutesLeft === null || minutesLeft <= 0) {
+    statusEl.textContent = 'オッズ自動更新：ON（まもなく更新）';
+  } else {
+    statusEl.textContent = 'オッズ自動更新：ON（次回更新まで約' + minutesLeft + '分）';
+  }
+}
+
+function fetchAutoRefreshStatus() {
+  fetch(AUTO_REFRESH_STATUS_URL)
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      renderAutoRefreshStatus(!!data.autoRefreshOn);
+    })
+    .catch(function() {
+      document.getElementById('auto-refresh-status').textContent = 'オッズ自動更新：状態を取得できませんでした';
+    });
+}
+
+fetchAutoRefreshStatus();
+setInterval(fetchAutoRefreshStatus, AUTO_REFRESH_STATUS_POLL_INTERVAL_SEC * 1000);
 </script>
 
 </body>

@@ -46,6 +46,12 @@ a { color: inherit; text-decoration: none; }
 .refresh-btn:disabled { opacity: .55; cursor: default; box-shadow: none; }
 .refresh-status { font-size: 11px; color: var(--muted); margin-top: 8px; min-height: 14px; }
 
+.auto-refresh-row {
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 10px;
+}
+.auto-refresh-status { font-size: 11px; color: var(--muted); min-height: 14px; }
+
 .date-title { font-size: 14px; font-weight: 700; color: var(--muted); margin: 16px 2px 8px; }
 
 /* ===== ルートページ: 開催日一覧 ===== */
