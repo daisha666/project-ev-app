@@ -11,6 +11,7 @@
 <div class="top-header">
   <span class="logo">🏇</span><h1>Project EV 予想</h1>
   <div class="sub">開催日一覧</div>
+  <div class="auto-refresh-status" id="auto-refresh-status">オッズ自動更新：確認中…</div>
 </div>
 <div class="container">
   <div class="date-list">
@@ -56,8 +57,32 @@
 </div>
   <div class="footer-note">単勝モデル（主軸）× 複勝モデル（参考）+ Harville法によるワイド・馬連推奨<br>新馬戦・障害戦は対象外</div>
 </div>
+<script>
+var AUTO_REFRESH_STATUS_URL = 'https://script.google.com/macros/s/AKfycbwSiLbpQnBnrikBxcpUfs_m8hUI2tO6yMOh7gMFwF18Oc1Go7jHxuuQ0L-D_FLH_0e6ig/exec?key=6fImI1UtFzsm6oNSE5k9uB4Lkpa6&action=autorefresh_status';
+var AUTO_REFRESH_STATUS_POLL_INTERVAL_SEC = 30;
+
+function renderAutoRefreshStatus(isOn, lastUpdatedAt) {
+  var statusEl = document.getElementById('auto-refresh-status');
+  var updated = lastUpdatedAt ? '（最終更新 ' + lastUpdatedAt + '）' : '';
+  statusEl.textContent = isOn
+    ? '🟢 オッズ自動更新：稼働中' + updated
+    : '⚪ オッズ自動更新：停止中' + updated;
+}
+
+function fetchAutoRefreshStatus() {
+  fetch(AUTO_REFRESH_STATUS_URL)
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      renderAutoRefreshStatus(!!data.autoRefreshOn, data.lastUpdatedAt || null);
+    })
+    .catch(function() {
+      document.getElementById('auto-refresh-status').textContent = 'オッズ自動更新：状態を取得できませんでした';
+    });
+}
+
+fetchAutoRefreshStatus();
+setInterval(fetchAutoRefreshStatus, AUTO_REFRESH_STATUS_POLL_INTERVAL_SEC * 1000);
+</script>
 
 </body>
 </html>
-<!-- deploy test 2026-09-08: SSH Deploy Key移行の動作確認用（無害） -->
-
